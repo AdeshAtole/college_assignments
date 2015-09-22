@@ -3,6 +3,8 @@ import java.util.PriorityQueue;
 public class Main {
 
 	public static void main(String[] args) {
+		//Inputs must be in decreasing order of b[i]/w[i]
+		
 		// Input 1
 		// float b[] = { 45, 30, 45, 10 }, w[] = { 3, 5, 9, 5 }, n = 4, capacity
 		// = 16;
