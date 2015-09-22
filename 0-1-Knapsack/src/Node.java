@@ -1,7 +1,7 @@
 public class Node implements Comparable<Node> {
-	float benefit, weight;
-	float upperBound;
-	int level;
+	private float benefit, weight;
+	private float upperBound;
+	private int level;
 
 	public Node(int level, float benefit, float weight, float upperBound) {
 		this.level = level;
@@ -9,18 +9,13 @@ public class Node implements Comparable<Node> {
 		this.weight = weight;
 		this.upperBound = upperBound;
 	}
-	
+
 	public Node(Node node) {
 		this.level = node.level;
 		this.benefit = node.benefit;
 		this.weight = node.weight;
 		this.upperBound = node.upperBound;
 	}
-	
-
-	
-
-
 
 	@Override
 	public int compareTo(Node o) {
@@ -29,24 +24,24 @@ public class Node implements Comparable<Node> {
 
 	}
 
-	Node getNextNode(boolean taking, float[] b, float[] w2, float capacity,
+	Node getNextNode(boolean taking, Data d[], float capacity,
 			int n) {
 		float benefit = 0, weight = 0, upperBound;
 		int level;
 		level = this.level + 1;
 		if (taking) {
-			benefit = b[level] + this.benefit;
-			weight = w2[level] + this.weight;
+			benefit = d[level].getB() + this.benefit;
+			weight = d[level].getW() + this.weight;
 			upperBound = benefit;
 			float W = weight;
 			for (int i = level + 1; i < n; i++) {
-				upperBound += b[i];
-				W += w2[i];
+				upperBound += d[i].getB();
+				W += d[i].getW();
 				if (W > capacity) {
-					W -= w2[i];
-					upperBound -= b[i];
+					W -= d[i].getW();
+					upperBound -= d[i].getB();
 					// System.out.println(((capacity-W)/w[i]));
-					upperBound += ((capacity - W) / w2[i]) * b[i];
+					upperBound += ((capacity - W) / d[i].getW()) * d[i].getB();
 					break;
 				}
 			}
@@ -56,13 +51,13 @@ public class Node implements Comparable<Node> {
 			upperBound = benefit;
 			float W = weight;
 			for (int i = level + 1; i < n; i++) {
-				upperBound += b[i];
-				W += w2[i];
+				upperBound += d[i].getB();
+				W += d[i].getW();
 				if (W > capacity) {
-					W -= w2[i];
-					upperBound -= b[i];
+					W -= d[i].getW();
+					upperBound -= d[i].getB();
 					// System.out.println(((capacity-W)/w[i]));
-					upperBound += ((capacity - W) / w2[i]) * b[i];
+					upperBound += ((capacity - W) / d[i].getW()) * d[i].getB();
 					break;
 				}
 			}
