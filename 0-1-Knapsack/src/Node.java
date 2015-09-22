@@ -30,18 +30,18 @@ public class Node implements Comparable<Node> {
 		int level;
 		level = this.level + 1;
 		if (taking) {
-			benefit = d[level].getB() + this.benefit;
-			weight = d[level].getW() + this.weight;
+			benefit = d[level].getBenefit() + this.benefit;
+			weight = d[level].getWeight() + this.weight;
 			upperBound = benefit;
 			float W = weight;
 			for (int i = level + 1; i < n; i++) {
-				upperBound += d[i].getB();
-				W += d[i].getW();
+				upperBound += d[i].getBenefit();
+				W += d[i].getWeight();
 				if (W > capacity) {
-					W -= d[i].getW();
-					upperBound -= d[i].getB();
+					W -= d[i].getWeight();
+					upperBound -= d[i].getBenefit();
 					// System.out.println(((capacity-W)/w[i]));
-					upperBound += ((capacity - W) / d[i].getW()) * d[i].getB();
+					upperBound += ((capacity - W) / d[i].getWeight()) * d[i].getBenefit();
 					break;
 				}
 			}
@@ -51,13 +51,13 @@ public class Node implements Comparable<Node> {
 			upperBound = benefit;
 			float W = weight;
 			for (int i = level + 1; i < n; i++) {
-				upperBound += d[i].getB();
-				W += d[i].getW();
+				upperBound += d[i].getBenefit();
+				W += d[i].getWeight();
 				if (W > capacity) {
-					W -= d[i].getW();
-					upperBound -= d[i].getB();
+					W -= d[i].getWeight();
+					upperBound -= d[i].getBenefit();
 					// System.out.println(((capacity-W)/w[i]));
-					upperBound += ((capacity - W) / d[i].getW()) * d[i].getB();
+					upperBound += ((capacity - W) / d[i].getWeight()) * d[i].getBenefit();
 					break;
 				}
 			}

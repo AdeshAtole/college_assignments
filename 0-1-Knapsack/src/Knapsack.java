@@ -15,13 +15,13 @@ public class Knapsack {
 		float upperBound = 0, W = 0;
 
 		for (int i = 0; i < n; i++) {
-			upperBound += d[i].getB();
-			W += d[i].getW();
+			upperBound += d[i].getBenefit();
+			W += d[i].getWeight();
 			if (W > capacity) {
-				W -= d[i].getW();
-				upperBound -= d[i].getB();
+				W -= d[i].getWeight();
+				upperBound -= d[i].getBenefit();
 				// System.out.println(((capacity-W)/w[i]));
-				upperBound += ((capacity - W) / d[i].getW()) * d[i].getB();
+				upperBound += ((capacity - W) / d[i].getWeight()) * d[i].getBenefit();
 				break;
 			}
 		}

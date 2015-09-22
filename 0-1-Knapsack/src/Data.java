@@ -1,32 +1,31 @@
 public class Data implements Comparable<Data> {
-	private float b, w;
+	private float benefit, weight;
 
-	public Data(float b, float w) {
+	public Data(float benefit, float weight) {
 		super();
-		this.b = b;
-		this.w = w;
+		this.benefit = benefit;
+		this.weight = weight;
+	}
+	public float getBenefit() {
+		return benefit;
 	}
 
-	public float getB() {
-		return b;
+	public void setBenefit(float b) {
+		this.benefit = b;
 	}
 
-	public void setB(float b) {
-		this.b = b;
+	public float getWeight() {
+		return weight;
 	}
 
-	public float getW() {
-		return w;
-	}
-
-	public void setW(float w) {
-		this.w = w;
+	public void setWeight(float w) {
+		this.weight = w;
 	}
 
 	@Override
 	public int compareTo(Data o) {
 		// TODO Auto-generated method stub
-		float f = ((o.getB() / o.getW()) - (getB() / getW()));
+		float f = ((o.getBenefit() / o.getWeight()) - (getBenefit() / getWeight()));
 		if (f > 0.0f) {
 			return 1;
 		} else if (f < 0.0f) {
@@ -38,7 +37,7 @@ public class Data implements Comparable<Data> {
 
 	@Override
 	public String toString() {
-		return "Data [b=" + b + ", w=" + w + "]";
+		return "Data [b=" + benefit + ", w=" + weight + "]";
 	}
 
 }
