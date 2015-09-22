@@ -65,15 +65,17 @@ public class Knapsack {
 			Data d[] = new Data[n];
 
 			for (int i = 0; i < n; i++) {
-				System.out.print("Enter benefit for item : " + (i + 1));
+				System.out.print("Enter benefit for item " + (i + 1)+" : ");
 				int b = Integer.parseInt(reader.readLine());
-				System.out.print("Enter benefit for item : " + (i + 1));
+				System.out.print("Enter weight for item " + (i + 1)+" : ");
 				int w = Integer.parseInt(reader.readLine());
 				d[i] = new Data(b, w);
 			}
 
 			Arrays.sort(d);
 
+			
+			
 			// Input 1
 			// int n = 4;
 			// float b[] = { 45, 30, 45, 10 }, w[] = { 3, 5, 9, 5 }, capacity =
