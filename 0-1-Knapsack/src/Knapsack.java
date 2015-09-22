@@ -65,10 +65,10 @@ public class Knapsack {
 			Data d[] = new Data[n];
 
 			for (int i = 0; i < n; i++) {
-				System.out.print("Enter benefit for item " + (i + 1)+" : ");
-				int b = Integer.parseInt(reader.readLine());
 				System.out.print("Enter weight for item " + (i + 1)+" : ");
-				int w = Integer.parseInt(reader.readLine());
+				int w = Integer.parseInt(reader.readLine().trim());
+				System.out.print("Enter benefit for item " + (i + 1)+" : ");
+				int b = Integer.parseInt(reader.readLine().trim());
 				d[i] = new Data(b, w);
 			}
 
@@ -92,7 +92,7 @@ public class Knapsack {
 			// d[i] = new Data(b[i], w[i]);
 			// }
 
-			System.out.println(new Knapsack().branchAndBound(d, (int) n,
+			System.out.println("Total value : " + new Knapsack().branchAndBound(d, (int) n,
 					capacity));
 
 		} catch (IOException e) {
