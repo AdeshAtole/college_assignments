@@ -36,13 +36,13 @@ void quicksort(int *arr,int n){
 		
 
 
-				while(arr[i]<arr[pivot] && i<n){
-					i++;
-				}
+			while(arr[i]<arr[pivot] && i<n){
+				i++;
+			}
 
-				while(arr[j]>=arr[pivot]){
-					j--;
-				}
+			while(arr[j]>=arr[pivot]){
+				j--;
+			}
 			
 			if(i>=j)
 			{

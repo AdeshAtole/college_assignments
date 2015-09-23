@@ -1,4 +1,4 @@
-//quicksort serial
+//quicksort parallel
 #include<iostream>
 #include<algorithm>
 #include<omp.h>
