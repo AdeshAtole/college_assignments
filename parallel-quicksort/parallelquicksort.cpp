@@ -9,10 +9,7 @@ using namespace std;
 
 int MAX_THREADS;
 
-int t = 0;
-
-int *threadStatus;
-
+/*
 bool threadsLeft(){
 	for(int i=0;i<MAX_THREADS;i++){
 		if(threadStatus[i] == 0){
@@ -21,7 +18,7 @@ bool threadsLeft(){
 	}
 	
 	return false;
-}
+}*/
 
 void init(int *arr,unsigned int n){
 	srand(102);
@@ -110,10 +107,6 @@ int main(){
 	omp_set_nested(true);
 	MAX_THREADS = omp_get_max_threads();
 	//cout<<"max threads"<<MAX_THREADS<<endl;
-	threadStatus = new int[MAX_THREADS];
-	for(int i=0;i<MAX_THREADS;i++){
-		threadStatus[i] = 0;
-	}
 	
 	int n = sizeof(arr)/sizeof(int);
 	double t = omp_get_wtime();
@@ -131,7 +124,6 @@ int main(){
 */	
 	
 
-	delete threadStatus;
 	return 0;
 	
 }
