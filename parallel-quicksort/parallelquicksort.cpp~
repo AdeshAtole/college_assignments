@@ -95,7 +95,7 @@ int main(){
 	
 	threadStatus = new int[MAX_THREADS];
 	for(int i=0;i<MAX_THREADS;i++){
-		threadStatus[i] = 0;
+		
 	}
 	
 	int n = sizeof(arr)/sizeof(int);
