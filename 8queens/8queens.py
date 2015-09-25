@@ -49,7 +49,7 @@ def place(n):
 			
 	return True
 
-inputFile = open("in")
+inputFile = open("in.json")
 data = json.loads(inputFile.read())
 
 data=data["matrix"]
@@ -62,7 +62,7 @@ for i in range(0,N):
 place(1)
 #print place(1)	
 print queens
-outfile = open("out","w")
+outfile = open("out.json","w")
 data = {}
 matrix = [[],[],[],[],[],[],[],[]]
 
