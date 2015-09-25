@@ -60,13 +60,14 @@ public class Apriori {
 			for (String s : is.getSet()) {
 				HashSet<String> temp = new HashSet<String>();
 				temp.add(s);
-				initialSet.add(temp);
+				if (getSupport(temp) >= minimumSupport)
+					initialSet.add(temp);
 			}
 		}
 
 		// System.out.println(initialSet);
 
-		ret = getNextSubsets(initialSet, minimumSupport);
+		ret = initialSet;
 		while (true) {
 			boolean allEqual = true;
 			int prev = getSupport(ret.iterator().next());
@@ -80,8 +81,8 @@ public class Apriori {
 			if (allEqual) {
 				break;
 			}
+//			System.out.println(ret);
 			ret = getNextSubsets(ret, minimumSupport);
-			// System.out.println(ret);
 		}
 
 		// Collections.
@@ -93,11 +94,14 @@ public class Apriori {
 
 		Apriori apriori = new Apriori();
 
-		apriori.add(new ItemSet(new String[] { "M", "O", "N", "K", "E", "Y" }));
-		apriori.add(new ItemSet(new String[] { "D", "O", "N", "K", "E", "Y" }));
-		apriori.add(new ItemSet(new String[] { "M", "A", "K", "E" }));
-		apriori.add(new ItemSet(new String[] { "M", "U", "C", "K", "Y" }));
-		apriori.add(new ItemSet(new String[] { "C", "O", "O", "K", "I", "E" }));
+		// apriori.add(new ItemSet(new String[] { "M", "O", "N", "K", "E", "Y"
+		// }));
+		// apriori.add(new ItemSet(new String[] { "D", "O", "N", "K", "E", "Y"
+		// }));
+		// apriori.add(new ItemSet(new String[] { "M", "A", "K", "E" }));
+		// apriori.add(new ItemSet(new String[] { "M", "U", "C", "K", "Y" }));
+		// apriori.add(new ItemSet(new String[] { "C", "O", "O", "K", "I", "E"
+		// }));
 
 		// apriori.add(new ItemSet(new String[]{"1","2","5"}));
 		// apriori.add(new ItemSet(new String[]{"2","4"}));
@@ -108,6 +112,17 @@ public class Apriori {
 		// apriori.add(new ItemSet(new String[]{"1","3"}));
 		// apriori.add(new ItemSet(new String[]{"1","2","3","5"}));
 		// apriori.add(new ItemSet(new String[]{"1","2","3"}));
+
+		apriori.add(new ItemSet(new String[] { "Mango", "Onion", "Jar",
+				"Keychain", "Eggs", "Chocolate" }));
+		apriori.add(new ItemSet(new String[] { "Nuts", "Onion", "Jar",
+				"Keychain", "Eggs", "Chocolate" }));
+		apriori.add(new ItemSet(new String[] { "Mango", "Apple", "Keychain",
+				"Eggs", "-", "-" }));
+		apriori.add(new ItemSet(new String[] { "Mango", "Toothbrush", "Corn",
+				"Keychain", "Chocolate", "-" }));
+		apriori.add(new ItemSet(new String[] { "Corn", "Onion", "Onion",
+				"Keychain", "Knife", "Eggs" }));
 
 		for (HashSet<String> hs : apriori.getResult(3)) {
 			for (String s : hs) {
