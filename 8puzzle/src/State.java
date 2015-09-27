@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class State {
-	int mat[][] = new int[3][3];
+	private int mat[][] = new int[3][3];
 
 	static final int LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4;
 
