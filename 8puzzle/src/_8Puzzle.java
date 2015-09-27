@@ -5,6 +5,8 @@ import java.util.Stack;
 
 public class _8Puzzle {
 
+	//8 puzzle - Uninformed search
+	
 	public static ArrayList<State> getSteps(State initialState, State finalState) {
 		ArrayList<State> sol = new ArrayList<State>();
 		LinkedHashSet<State> closed = new LinkedHashSet<State>(), open = new LinkedHashSet<State>();
