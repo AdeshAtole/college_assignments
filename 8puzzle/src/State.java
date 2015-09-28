@@ -3,6 +3,10 @@ import java.util.Random;
 
 public class State {
 	private int mat[][] = new int[3][3];
+	/**
+	 * level needed only for DFS
+	 */
+	private int level;
 
 	static final int LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4;
 
@@ -30,6 +34,7 @@ public class State {
 		i++;
 		mat[j][i] = x;
 
+		level = 0;
 	}
 
 	// public State(int mat[][]) {
@@ -48,6 +53,7 @@ public class State {
 				this.mat[i][j] = s.mat[i][j];
 			}
 		}
+		this.level = s.level;
 	}
 
 	private Position getEmptyCell() {
@@ -105,26 +111,29 @@ public class State {
 
 		State s = new State(this);
 		if (s.move(UP)) {
+			s.level = level + 1;
 			list.add(s);
 		}
 
 		s = new State(this);
 		if (s.move(DOWN)) {
+			s.level = level + 1;
 			list.add(s);
 		}
 
 		s = new State(this);
 		if (s.move(LEFT)) {
+			s.level = level + 1;
 			list.add(s);
 		}
 		s = new State(this);
 		if (s.move(RIGHT)) {
+			s.level = level + 1;
 			list.add(s);
 		}
 
 		return list;
 	}
-
 
 	@Override
 	public String toString() {
@@ -160,5 +169,9 @@ public class State {
 		while (--moves > 0) {
 			this.move(1 + random.nextInt(4));
 		}
+	}
+
+	public int getLevel() {
+		return level;
 	}
 }
