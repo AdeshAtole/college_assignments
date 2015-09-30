@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Apriori {
 
@@ -52,7 +53,7 @@ public class Apriori {
 		return ret;
 	}
 
-	public HashSet<HashSet<String>> getResult(int minimumSupport) {
+	public HashSet<HashSet<String>> getFrequentSet(int minimumSupport) {
 		HashSet<HashSet<String>> ret;
 		HashSet<HashSet<String>> initialSet = new HashSet<HashSet<String>>();
 
@@ -81,12 +82,65 @@ public class Apriori {
 			if (allEqual) {
 				break;
 			}
-//			System.out.println(ret);
+			// System.out.println(ret);
 			ret = getNextSubsets(ret, minimumSupport);
 		}
 
 		// Collections.
 		// return null;
+		return ret;
+	}
+
+	private ArrayList<HashSet<String>> getAllSubsets(HashSet<String> set) {
+		// ArrayList<te>
+		ArrayList<HashSet<String>> ret = new ArrayList<HashSet<String>>();
+		int lim = (int) Math.pow(2, set.size()) - 1;
+		for (int i = 1; i < lim; i++) {
+			int j = 1;
+			Iterator<String> iterator = set.iterator();
+			HashSet<String> tmp = new HashSet<String>();
+			while (iterator.hasNext()) {
+				String s = iterator.next();
+				// System.out.println(j + " "+i);
+				if ((j & i) == j) {
+					tmp.add(s);
+					// System.out.println("Added " + s + "tmp =  " + tmp);
+				} else {
+					// System.out.println("skipped " + s);
+				}
+				j <<= 1;
+			}
+			// System.out.println(tmp);
+			ret.add(tmp);
+		}
+
+		return ret;
+	}
+
+	public ArrayList<AssociationRule> getAssociationRules(
+			HashSet<HashSet<String>> set, float minimumConfidence) {
+		ArrayList<AssociationRule> ret = new ArrayList<AssociationRule>();
+		for (HashSet<String> hs : set) {
+			for (HashSet<String> key : getAllSubsets(hs)) {
+				for (HashSet<String> value : getAllSubsets(hs)) {
+					if (!value.containsAll(key) && !key.containsAll(value)) {
+						float numerator = 0, denominator = 0;
+						for (ItemSet is : data) {
+							if (is.getSet().containsAll(key)) {
+								denominator++;
+								if (is.getSet().containsAll(value)) {
+									numerator++;
+								}
+							}
+						}
+						float confidence = (numerator / denominator) * 100;
+						// System.out.println(minimumConfidence);
+						if (confidence > minimumConfidence)
+							ret.add(new AssociationRule(key, value, confidence));
+					}
+				}
+			}
+		}
 		return ret;
 	}
 
@@ -124,11 +178,19 @@ public class Apriori {
 		apriori.add(new ItemSet(new String[] { "Corn", "Onion", "Onion",
 				"Keychain", "Knife", "Eggs" }));
 
-		for (HashSet<String> hs : apriori.getResult(3)) {
+		for (HashSet<String> hs : apriori.getFrequentSet(3)) {
 			for (String s : hs) {
 				System.out.print(s + " ");
 			}
 			System.out.println();
+		}
+
+		// System.out.println(apriori.getAllSubsets(apriori.getFrequentSet(3)
+		// .iterator().next()));
+
+		for (AssociationRule ar : apriori.getAssociationRules(
+				apriori.getFrequentSet(3), 60)) {
+			System.out.println(ar);
 		}
 
 	}
