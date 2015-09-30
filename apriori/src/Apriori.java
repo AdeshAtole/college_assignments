@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -117,13 +118,22 @@ public class Apriori {
 		return ret;
 	}
 
-	public ArrayList<AssociationRule> getAssociationRules(
+	public HashMap<HashSet<String>, Association> getAssociationRules(
 			HashSet<HashSet<String>> set, float minimumConfidence) {
-		ArrayList<AssociationRule> ret = new ArrayList<AssociationRule>();
+		// ArrayList<AssociationRule> ret = new ArrayList<AssociationRule>();
+		HashMap<HashSet<String>, Association> ret = new HashMap<HashSet<String>, Association>();
+		// HashMap<HashSet<String>, HashSet<String>>();
 		for (HashSet<String> hs : set) {
 			for (HashSet<String> key : getAllSubsets(hs)) {
 				for (HashSet<String> value : getAllSubsets(hs)) {
-					if (!value.containsAll(key) && !key.containsAll(value)) {
+					HashSet<String> tValue, tKey;
+					tValue = new HashSet<String>(value);
+					tKey = new HashSet<String>(key);
+					tValue.removeAll(key);
+					tKey.removeAll(value);
+
+					if (tValue.size() == value.size()
+							&& tKey.size() == key.size()) {
 						float numerator = 0, denominator = 0;
 						for (ItemSet is : data) {
 							if (is.getSet().containsAll(key)) {
@@ -135,8 +145,21 @@ public class Apriori {
 						}
 						float confidence = (numerator / denominator) * 100;
 						// System.out.println(minimumConfidence);
-						if (confidence > minimumConfidence)
-							ret.add(new AssociationRule(key, value, confidence));
+						if (confidence > minimumConfidence) {
+							// if()
+							// ret.add(new AssociationRule(key, value,
+							// confidence));
+
+							Association finalValue = new Association();
+							finalValue.setConfidence(confidence);
+							finalValue.addAll(value);
+							try {
+								finalValue.addAll(ret.get(key));
+							} catch (NullPointerException e) {
+
+							}
+							ret.put(key, finalValue);
+						}
 					}
 				}
 			}
@@ -188,9 +211,13 @@ public class Apriori {
 		// System.out.println(apriori.getAllSubsets(apriori.getFrequentSet(3)
 		// .iterator().next()));
 
-		for (AssociationRule ar : apriori.getAssociationRules(
-				apriori.getFrequentSet(3), 60)) {
-			System.out.println(ar);
+		HashMap<HashSet<String>, Association> map = apriori
+				.getAssociationRules(apriori.getFrequentSet(3), 60);
+
+		// map.ke
+		for (HashSet<String> set : map.keySet()) {
+			System.out.println(set + " -> " + map.get(set) + " "
+					+ map.get(set).getConfidence());
 		}
 
 	}
